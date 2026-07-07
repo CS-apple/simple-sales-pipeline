@@ -1,0 +1,532 @@
+/* =====================================================================
+   Pipeline — sales dashboard starter
+   Light-mode B2B SaaS aesthetic. One accent (indigo), soft shadows,
+   subtle borders, tabular numerals on the money figures.
+   All structural classes for the board are defined here so that
+   JavaScript-generated markup is styled out of the box.
+   ===================================================================== */
+
+:root {
+  /* ---- Palette --------------------------------------------------- */
+  --bg:              #F6F7F9;
+  --surface:         #FFFFFF;
+  --surface-muted:   #FAFAFC;
+  --border:          #E7E9EE;
+  --border-strong:   #D6DAE1;
+  --text:            #191C24;
+  --text-secondary:  #565E6C;
+  --text-muted:      #8C93A1;
+
+  --accent:          #5E6AD2;
+  --accent-hover:    #4E59C0;
+  --accent-soft:     #EEF0FC;
+  --on-accent:       #FFFFFF;
+
+  /* ---- Stage accents -------------------------------------------- */
+  --stage-lead:      #8C93A1;
+  --stage-contact:   #5E6AD2;
+  --stage-proposal:  #C4861F;
+  --stage-won:       #1F9D6B;
+  --stage-lost:      #C24B57;
+
+  /* ---- Radius ---------------------------------------------------- */
+  --r-sm: 7px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-pill: 999px;
+
+  /* ---- Shadows (layered, low opacity) --------------------------- */
+  --shadow-xs: 0 1px 2px rgba(20, 27, 45, 0.05);
+  --shadow-sm: 0 1px 2px rgba(20, 27, 45, 0.04), 0 2px 6px rgba(20, 27, 45, 0.05);
+  --shadow-md: 0 4px 14px -4px rgba(20, 27, 45, 0.10), 0 2px 6px -2px rgba(20, 27, 45, 0.06);
+
+  /* ---- Type ------------------------------------------------------ */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+               Roboto, Helvetica, Arial, sans-serif;
+  --num: 'Inter', ui-monospace, 'SF Mono', sans-serif;
+
+  /* ---- Spacing rhythm ------------------------------------------- */
+  --gutter: 28px;
+}
+
+/* =====================================================================
+   Reset / base
+   ===================================================================== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, p { margin: 0; }
+
+button,
+input,
+select { font: inherit; color: inherit; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
+
+/* =====================================================================
+   App shell
+   ===================================================================== */
+.app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =====================================================================
+   Header
+   ===================================================================== */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px var(--gutter);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  display: inline-flex;
+  color: var(--accent);
+}
+
+.brand-name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.1;
+}
+
+.metric-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.metric-value {
+  font-family: var(--num);
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+  color: var(--text);
+}
+
+/* =====================================================================
+   Main
+   ===================================================================== */
+.app-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* =====================================================================
+   Toolbar / add-deal form
+   ===================================================================== */
+.toolbar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-sm);
+  padding: 18px 20px 20px;
+}
+
+.toolbar-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.add-deal-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 150px;
+  min-width: 0;
+}
+
+.field--grow { flex: 2 1 220px; }
+.field--value { flex: 0 1 130px; }
+
+.field--action {
+  flex: 0 0 auto;
+  align-self: flex-end;
+}
+
+.field label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.field input,
+.field select {
+  width: 100%;
+  height: 38px;
+  padding: 0 11px;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  color: var(--text);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.field input::placeholder { color: var(--text-muted); }
+
+.field input:hover,
+.field select:hover { border-color: #C2C7D0; }
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.field select {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 30px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M2.5 4.5L6 8l3.5-3.5' stroke='%238C93A1' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 11px center;
+  cursor: pointer;
+}
+
+/* Dollar-prefixed number input */
+.input-prefix {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix .prefix {
+  position: absolute;
+  left: 11px;
+  font-size: 14px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.input-prefix input {
+  padding-left: 24px;
+}
+
+/* Primary action */
+.btn-primary {
+  height: 38px;
+  padding: 0 18px;
+  background: var(--accent);
+  color: var(--on-accent);
+  border: 1px solid var(--accent);
+  border-radius: var(--r-sm);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: var(--shadow-xs);
+  transition: background 0.12s ease, transform 0.04s ease;
+}
+
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+.btn-primary:active { transform: translateY(1px); }
+
+/* =====================================================================
+   Board
+   ===================================================================== */
+.board-section { flex: 1; }
+
+.deal-board {
+  min-height: 340px;
+  height: 100%;
+}
+
+/* ---- Empty state (remove/hide once deals exist) ----------------- */
+.empty-state {
+  height: 100%;
+  min-height: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  background: var(--surface);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--r-lg);
+}
+
+.empty-illustration {
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+.empty-title {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+
+.empty-text {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  max-width: 320px;
+}
+
+/* ---- Columns (rendered by student JS) --------------------------- */
+.board-columns {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 1fr);
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+  align-items: start;
+}
+
+.board-column {
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* a thin colored cap keyed to the stage accent */
+  border-top: 2px solid var(--border-strong);
+}
+
+.column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 2px 2px 0;
+}
+
+.column-title {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.column-count {
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  min-width: 22px;
+  height: 20px;
+  padding: 0 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.column-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 24px;
+}
+
+/* ---- Deal card -------------------------------------------------- */
+.deal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-xs);
+  padding: 12px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: box-shadow 0.12s ease, border-color 0.12s ease, transform 0.04s ease;
+}
+
+.deal-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+
+.deal-company {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.deal-meta {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  color: var(--text-secondary);
+}
+
+.deal-value {
+  font-family: var(--num);
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* small colored dot for stage; pair with a .stage-* class */
+.stage-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+  background: var(--text-muted);
+  display: inline-block;
+}
+
+/* =====================================================================
+   Stage accent map
+   Apply to .board-column (colors the top cap) and/or .stage-dot.
+   ===================================================================== */
+.stage-lead     { border-top-color: var(--stage-lead); }
+.stage-contact  { border-top-color: var(--stage-contact); }
+.stage-proposal { border-top-color: var(--stage-proposal); }
+.stage-won      { border-top-color: var(--stage-won); }
+.stage-lost     { border-top-color: var(--stage-lost); }
+
+.stage-dot.stage-lead     { background: var(--stage-lead); border-top: 0; }
+.stage-dot.stage-contact  { background: var(--stage-contact); border-top: 0; }
+.stage-dot.stage-proposal { background: var(--stage-proposal); border-top: 0; }
+.stage-dot.stage-won      { background: var(--stage-won); border-top: 0; }
+.stage-dot.stage-lost     { background: var(--stage-lost); border-top: 0; }
+
+/* =====================================================================
+   Responsive
+   ===================================================================== */
+@media (max-width: 620px) {
+  :root { --gutter: 18px; }
+
+  .app-header { padding: 14px var(--gutter); }
+  .metric-value { font-size: 24px; }
+
+  .field,
+  .field--grow,
+  .field--value { flex: 1 1 100%; }
+
+  .field--action { width: 100%; }
+  .btn-primary { width: 100%; }
+}
+
+/* =====================================================================
+   Motion preferences
+   ===================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* =====================================================================
+   Reference-build additions — deal-card action controls
+   The starter ships deliberately without card controls (move-stage and
+   delete arrive in lesson 3.10). This block styles the buttons the JS
+   adds, using the existing tokens so the finished reference looks whole.
+   It only targets classes the JS creates, so the student starter is
+   visually unaffected until those controls exist.
+   ===================================================================== */
+.deal-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+  padding-top: 9px;
+  border-top: 1px solid var(--border);
+}
+
+.deal-actions-spacer { margin-left: auto; }
+
+.deal-btn {
+  width: 27px;
+  height: 27px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: var(--surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.deal-btn:hover {
+  background: var(--surface-muted);
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.deal-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.deal-btn--danger:hover {
+  color: var(--stage-lost);
+  border-color: var(--stage-lost);
+  background: #FCF3F4;
+}

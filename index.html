@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pipeline — Sales Dashboard</title>
+
+  <!-- Inter for the authentic SaaS look; system stack falls back cleanly if offline. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+
+    <!-- ============ HEADER ============ -->
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2.5" width="4" height="15" rx="1.5" fill="currentColor" opacity="0.45" />
+            <rect x="8" y="2.5" width="4" height="15" rx="1.5" fill="currentColor" opacity="0.7" />
+            <rect x="14" y="2.5" width="4" height="15" rx="1.5" fill="currentColor" />
+          </svg>
+        </span>
+        <span class="brand-name">Pipeline</span>
+      </div>
+
+      <div class="metric">
+        <span class="metric-label">Open pipeline</span>
+        <!-- JS target: set this element's text to the running total. -->
+        <strong id="pipeline-total" class="metric-value">$0</strong>
+      </div>
+    </header>
+
+    <main class="app-main">
+
+      <!-- ============ ADD DEAL FORM ============ -->
+      <section class="toolbar" aria-labelledby="add-deal-heading">
+        <h2 id="add-deal-heading" class="toolbar-title">Add a deal</h2>
+
+        <form id="add-deal-form" class="add-deal-form">
+          <div class="field field--grow">
+            <label for="field-company">Company</label>
+            <input type="text" id="field-company" name="company" placeholder="Acme Inc." autocomplete="off" />
+          </div>
+
+          <div class="field field--value">
+            <label for="field-value">Value</label>
+            <div class="input-prefix">
+              <span class="prefix" aria-hidden="true">$</span>
+              <input type="number" id="field-value" name="value" placeholder="0" min="0" step="100" inputmode="numeric" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="field-stage">Stage</label>
+            <select id="field-stage" name="stage">
+              <option value="Lead">Lead</option>
+              <option value="Contact">Contact</option>
+              <option value="Proposal">Proposal</option>
+              <option value="Won">Won</option>
+              <option value="Lost">Lost</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="field-owner">Owner</label>
+            <input type="text" id="field-owner" name="owner" placeholder="Jordan Lee" autocomplete="off" />
+          </div>
+
+          <div class="field field--action">
+            <button type="submit" class="btn-primary">Add deal</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ============ BOARD ============ -->
+      <section class="board-section" aria-label="Pipeline board">
+        <!--
+          #deal-board starts empty by design. Your JavaScript renders into it.
+
+          Pre-styled classes available to you (no extra CSS needed):
+
+            .board-columns          grid wrapper for the five stage columns
+            .board-column           one stage column
+              .column-header        title row at the top of a column
+                .column-title       the stage name
+                .column-count       small pill with the deal count
+              .column-body          where you append deal cards
+            .deal-card              one deal
+              .deal-company         company name
+              .deal-meta            owner / secondary info row
+              .deal-value           the dollar amount
+              .stage-dot            colored dot — pair with a stage class below
+
+          Stage accent classes (put on .board-column and/or .stage-dot):
+            .stage-lead  .stage-contact  .stage-proposal  .stage-won  .stage-lost
+
+          Remove or hide .empty-state once the first deal is added.
+        -->
+        <div id="deal-board" class="deal-board">
+          <div class="empty-state">
+            <div class="empty-illustration" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="3" y="9" width="12" height="30" rx="3" fill="currentColor" opacity="0.18" />
+                <rect x="18" y="9" width="12" height="30" rx="3" fill="currentColor" opacity="0.32" />
+                <rect x="33" y="9" width="12" height="30" rx="3" fill="currentColor" opacity="0.5" />
+                <rect x="6" y="13" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.55" />
+                <rect x="21" y="13" width="6" height="6" rx="1.5" fill="currentColor" opacity="0.7" />
+              </svg>
+            </div>
+            <h3 class="empty-title">No deals yet</h3>
+            <p class="empty-text">Add your first deal using the form above, and it’ll appear here on the board.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Reference build only — delete this line for the student starter. -->
+  <script type="module" src="app.js"></script>
+</body>
+</html>
